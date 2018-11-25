@@ -1,4 +1,4 @@
-package aglog
+package log
 
 import (
 	"fmt"

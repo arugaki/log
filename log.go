@@ -1,4 +1,4 @@
-package aglog
+package log
 
 type Log interface {
 	Debug(format string, args ...interface{})
