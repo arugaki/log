@@ -95,8 +95,6 @@ func generateLogForFile(level, format string, args ...interface{}) (string) {
 	funcName := strings.Split(pkgFunc, ".")[1]
 	msg := fmt.Sprintf(format, args...)
 
-	log := fmt.Sprintf(`[%s] time=%s, pkg=%s, file=%s:%d, func=%s, msg=%s`,
-		level, now, pkgName, fileName, lineNum, funcName, msg)
-
+	log := fmt.Sprintf(FORMAT, level, now, pkgName, fileName, lineNum, funcName, msg)
 	return log
 }

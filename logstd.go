@@ -2,10 +2,6 @@ package log
 
 import (
 	"fmt"
-	"path"
-	"runtime"
-	"strings"
-	"time"
 )
 
 func Trace(format string, args ...interface{}) {
@@ -42,36 +38,6 @@ func Fatal(format string, args ...interface{}) {
 	msg := generateLog(format, args...)
 	log := fmt.Sprintf(`[%s] %s`, purpose(DebugLevel), msg)
 	fmt.Println(log)
-}
-
-func getLineInfo() (string, string, int) {
-
-	pc, file, line, ok := runtime.Caller(3)
-	lineNum := 0
-	fileName, funcName := "", ""
-	if ok {
-		fileName = file
-		funcName = runtime.FuncForPC(pc).Name()
-		lineNum = line
-	}
-
-	fileName = path.Base(fileName)
-	funcName = path.Base(funcName)
-	return fileName, funcName, lineNum
-}
-
-func generateLog(format string, args ...interface{}) (string) {
-
-	now := time.Now().Format("2006-01-02 15:04:05")
-	fileName, pkgFunc, lineNum := getLineInfo()
-	pkgName := strings.Split(pkgFunc, ".")[0]
-	funcName := strings.Split(pkgFunc, ".")[1]
-	msg := fmt.Sprintf(format, args...)
-
-	log := fmt.Sprintf(`time=%s, pkg=%s, file=%s:%d, func=%s, msg=%s`,
-		now, pkgName, fileName, lineNum, funcName, msg)
-
-	return log
 }
 
 func red(s string) string {
